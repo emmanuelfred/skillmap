@@ -6,7 +6,8 @@ from slowapi.util import get_remote_address
 from app.api.endpoints import router as main_router
 from app.api.talent_ai import router as talent_router
 from app.api.assessment import router as assessment_router
-from app.api.external_jobs_endpoint import router as external_jobs_router  # ← NEW
+from app.api.external_jobs_endpoint import router as external_jobs_router
+from app.api.founder_assistant import router as founder_router
 
 from app.core.config import settings
 
@@ -45,7 +46,8 @@ async def health():
 app.include_router(main_router, prefix="/api/v1")
 app.include_router(talent_router, prefix="/api/v1")
 app.include_router(assessment_router, prefix="/api/v1")
-app.include_router(external_jobs_router, prefix="/api/v1")  # ← NEW
+app.include_router(external_jobs_router, prefix="/api/v1")
+app.include_router(founder_router, prefix="/api/v1")
 
 @app.on_event("startup")
 async def startup():
@@ -57,6 +59,7 @@ async def startup():
     logger.info("  /api/v1/talent/screen")
     logger.info("  /api/v1/assessment/generate")
     logger.info("  /api/v1/assessment/evaluate")
-    logger.info("  /api/v1/talent/external-jobs    ← NEW")
+    logger.info("  /api/v1/talent/external-jobs")
+    logger.info("  /api/v1/founder/analyze")
     logger.info("Swagger UI: http://localhost:8000/docs")
     logger.info("=" * 60)
